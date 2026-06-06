@@ -9,6 +9,7 @@ const transactionRoutes = require('./routes/transactions');
 const alerteRoutes = require('./routes/alertes');
 
 const app = express();
+app.set('trust proxy', 1);
 
 // ─── Middlewares de sécurité ───────────────────────────────────────────────
 app.use(helmet());
