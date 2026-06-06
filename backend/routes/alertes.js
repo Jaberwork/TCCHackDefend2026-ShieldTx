@@ -55,7 +55,7 @@ router.get('/', verifierToken, async (req, res) => {
     res.status(500).json({ erreur: 'Erreur lors de la récupération des alertes.' });
   }
 });
-router.get('/verifier/:numero', async (req, res) => {
+router.get('/:numero', async (req, res) => {
   const { numero } = req.params;
   try {
     const [fraude] = await db.query(
