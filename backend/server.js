@@ -10,7 +10,7 @@ const alerteRoutes = require('./routes/alertes');
 
 const app = express();
 app.set('trust proxy', 1);
-app.use('/api/verifier', alerteRoutes);
+
 
 // ─── Middlewares de sécurité ───────────────────────────────────────────────
 app.use(helmet());
@@ -29,6 +29,7 @@ app.use(limiter);
 app.use('/api/auth', authRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/alertes', alerteRoutes);
+app.use('/api/verifier', alerteRoutes);
 
 // ─── Route de test ────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
