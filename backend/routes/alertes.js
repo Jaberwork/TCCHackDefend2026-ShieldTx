@@ -83,16 +83,4 @@ router.get('/verifier/:numero', async (req, res) => {
     res.status(500).json({ erreur: 'Erreur lors de la vérification.' });
   }
 });
-Ensuite dans server.js, ajoute cette route publique :
-javascriptapp.use('/api/verifier', alerteRoutes);
-Puis push :
-bashcd ~/TCCHackDefend2026_ShieldTx
-git add backend/routes/alertes.js backend/server.js
-git commit -m "feat: route publique verification numero sans token"
-git push origin main
-Dis à Khassim que la route publique sera :
-GET https://shieldtx-production.up.railway.app/api/verifier/NUMERO
-Exemple :
-GET https://shieldtx-production.up.railway.app/api/verifier/90000000
-Pas besoin de token pour cette route !
-module.exports = router;
+
