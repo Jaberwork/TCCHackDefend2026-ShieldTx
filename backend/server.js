@@ -14,7 +14,13 @@ app.set('trust proxy', 1);
 
 // ─── Middlewares de sécurité ───────────────────────────────────────────────
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://khassim10.github.io'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Limite : 100 requêtes max par 15 minutes par IP
