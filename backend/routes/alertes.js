@@ -84,3 +84,4 @@ router.get('/verifier/:numero', async (req, res) => {
   }
 });
 
+module.exports = router;
