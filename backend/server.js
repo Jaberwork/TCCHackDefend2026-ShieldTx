@@ -17,7 +17,8 @@ app.use(helmet());
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://khassim10.github.io'
+    'https://khassim10.github.io',
+    'https://shield-tx-five.vercel.app'
   ],
   credentials: true
 }));

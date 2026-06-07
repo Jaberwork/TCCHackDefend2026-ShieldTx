@@ -328,6 +328,8 @@ Le backend est déployé sur Railway et accessible publiquement :
 
 ```
 https://shieldtx-production.up.railway.app
+Frontend : https://shield-tx-five.vercel.app/
+Backend  : https://shieldtx-production.up.railway.app
 ```
 
 \---
