@@ -131,11 +131,11 @@ Ouvrir `.env` et remplir :
 
 ```
 PORT=3000
-DB\\\_HOST=localhost
-DB\\\_USER=root
-DB\\\_PASSWORD=votre\\\_mot\\\_de\\\_passe
-DB\\\_NAME=shieldtx
-JWT\\\_SECRET=shieldtx\\\_secret\\\_key\\\_2026
+DB\\\HOST=localhost
+DB\\\USER=root
+DB\\\PASSWORD=votre\\\mot\\\de\\\passe
+DB\\\NAME=shieldtx
+JWT\\\SECRET=shieldtx\\\secret\\\key\\\2026
 ```
 
 ### 4\. Créer la base de données
@@ -147,108 +147,108 @@ CREATE DATABASE shieldtx;
 USE shieldtx;
 
 CREATE TABLE IF NOT EXISTS users (
-  id INT AUTO\\\_INCREMENT PRIMARY KEY,
+  id INT AUTO\\\INCREMENT PRIMARY KEY,
   nom VARCHAR(100),
   email VARCHAR(100) UNIQUE,
-  mot\\\_de\\\_passe VARCHAR(255),
-  nb\\\_transactions INT DEFAULT 0,
-  derniere\\\_modif\\\_mdp TIMESTAMP NULL DEFAULT NULL,
-  created\\\_at TIMESTAMP DEFAULT CURRENT\\\_TIMESTAMP
+  mot\\\de\\\passe VARCHAR(255),
+  nb\\\transactions INT DEFAULT 0,
+  derniere\\\modif\\\mdp TIMESTAMP NULL DEFAULT NULL,
+  created\\\at TIMESTAMP DEFAULT CURRENT\\\TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS transactions (
-  id INT AUTO\\\_INCREMENT PRIMARY KEY,
-  user\\\_id INT,
+  id INT AUTO\\\INCREMENT PRIMARY KEY,
+  user\\\id INT,
   montant DECIMAL(10,2),
   type ENUM('envoi', 'reception', 'retrait'),
   statut ENUM('normale', 'suspecte', 'bloquee') DEFAULT 'normale',
-  created\\\_at TIMESTAMP DEFAULT CURRENT\\\_TIMESTAMP,
-  FOREIGN KEY (user\\\_id) REFERENCES users(id)
+  created\\\at TIMESTAMP DEFAULT CURRENT\\\TIMESTAMP,
+  FOREIGN KEY (user\\\id) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS alertes (
-  id INT AUTO\\\_INCREMENT PRIMARY KEY,
-  transaction\\\_id INT,
+  id INT AUTO\\\INCREMENT PRIMARY KEY,
+  transaction\\\id INT,
   motif VARCHAR(255),
-  signale\\\_par INT,
-  created\\\_at TIMESTAMP DEFAULT CURRENT\\\_TIMESTAMP,
-  FOREIGN KEY (transaction\\\_id) REFERENCES transactions(id),
-  FOREIGN KEY (signale\\\_par) REFERENCES users(id)
+  signale\\\par INT,
+  created\\\at TIMESTAMP DEFAULT CURRENT\\\TIMESTAMP,
+  FOREIGN KEY (transaction\\\id) REFERENCES transactions(id),
+  FOREIGN KEY (signale\\\par) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS numeros\\\_frauduleux (
-  id INT AUTO\\\_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS numeros\\\frauduleux (
+  id INT AUTO\\\INCREMENT PRIMARY KEY,
   numero VARCHAR(20) UNIQUE,
-  type\\\_fraude ENUM('usurpation','faux\\\_gain','phishing','sim\\\_swap','autre'),
-  nb\\\_signalements INT DEFAULT 1,
-  score\\\_risque INT DEFAULT 0,
-  derniere\\\_activite TIMESTAMP DEFAULT CURRENT\\\_TIMESTAMP,
-  created\\\_at TIMESTAMP DEFAULT CURRENT\\\_TIMESTAMP
+  type\\\fraude ENUM('usurpation','faux\\\gain','phishing','sim\\\swap','autre'),
+  nb\\\signalements INT DEFAULT 1,
+  score\\\risque INT DEFAULT 0,
+  derniere\\\activite TIMESTAMP DEFAULT CURRENT\\\TIMESTAMP,
+  created\\\at TIMESTAMP DEFAULT CURRENT\\\TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS profil\\\_global (
-  id INT AUTO\\\_INCREMENT PRIMARY KEY,
-  montant\\\_moyen DECIMAL(10,2) DEFAULT 45000,
-  montant\\\_max\\\_normal DECIMAL(10,2) DEFAULT 500000,
-  heure\\\_debut\\\_normal INT DEFAULT 6,
-  heure\\\_fin\\\_normal INT DEFAULT 22,
-  updated\\\_at TIMESTAMP DEFAULT CURRENT\\\_TIMESTAMP
+CREATE TABLE IF NOT EXISTS profil\\\global (
+  id INT AUTO\\\INCREMENT PRIMARY KEY,
+  montant\\\moyen DECIMAL(10,2) DEFAULT 45000,
+  montant\\\max\\\normal DECIMAL(10,2) DEFAULT 500000,
+  heure\\\debut\\\normal INT DEFAULT 6,
+  heure\\\fin\\\normal INT DEFAULT 22,
+  updated\\\at TIMESTAMP DEFAULT CURRENT\\\TIMESTAMP
 );
 
-INSERT IGNORE INTO profil\\\_global
-(montant\\\_moyen, montant\\\_max\\\_normal, heure\\\_debut\\\_normal, heure\\\_fin\\\_normal)
+INSERT IGNORE INTO profil\\\global
+(montant\\\moyen, montant\\\max\\\normal, heure\\\debut\\\normal, heure\\\fin\\\normal)
 VALUES (45000, 500000, 6, 22);
 
-CREATE TABLE IF NOT EXISTS profil\\\_utilisateur (
-  user\\\_id INT PRIMARY KEY,
-  nb\\\_transactions INT DEFAULT 0,
-  montant\\\_moyen DECIMAL(10,2) DEFAULT NULL,
-  montant\\\_max DECIMAL(10,2) DEFAULT NULL,
-  heure\\\_habituelle\\\_debut INT DEFAULT NULL,
-  heure\\\_habituelle\\\_fin INT DEFAULT NULL,
-  FOREIGN KEY (user\\\_id) REFERENCES users(id)
+CREATE TABLE IF NOT EXISTS profil\\\utilisateur (
+  user\\\id INT PRIMARY KEY,
+  nb\\\transactions INT DEFAULT 0,
+  montant\\\moyen DECIMAL(10,2) DEFAULT NULL,
+  montant\\\max DECIMAL(10,2) DEFAULT NULL,
+  heure\\\habituelle\\\debut INT DEFAULT NULL,
+  heure\\\habituelle\\\fin INT DEFAULT NULL,
+  FOREIGN KEY (user\\\id) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS regles\\\_scoring (
-  id INT AUTO\\\_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS regles\\\scoring (
+  id INT AUTO\\\INCREMENT PRIMARY KEY,
   critere VARCHAR(100),
   seuil DECIMAL(10,2),
   poids INT,
   description VARCHAR(255)
 );
 
-INSERT IGNORE INTO regles\\\_scoring (critere, seuil, poids, description) VALUES
-('montant\\\_eleve', 500000, 30, 'Transaction > 500 000 FCFA'),
-('heure\\\_nuit', 5, 20, 'Transaction entre 00h et 05h'),
-('frequence\\\_elevee', 3, 25, 'Plus de 3 transactions en 30 minutes'),
-('compte\\\_recent', 7, 15, 'Compte créé il y a moins de 7 jours'),
-('montant\\\_inhabituel', 3, 10, 'Montant 3x supérieur à la moyenne');
+INSERT IGNORE INTO regles\\\scoring (critere, seuil, poids, description) VALUES
+('montant\\\eleve', 500000, 30, 'Transaction > 500 000 FCFA'),
+('heure\\\nuit', 5, 20, 'Transaction entre 00h et 05h'),
+('frequence\\\elevee', 3, 25, 'Plus de 3 transactions en 30 minutes'),
+('compte\\\recent', 7, 15, 'Compte créé il y a moins de 7 jours'),
+('montant\\\inhabituel', 3, 10, 'Montant 3x supérieur à la moyenne');
 
 CREATE TABLE IF NOT EXISTS connexions (
-  id INT AUTO\\\_INCREMENT PRIMARY KEY,
-  user\\\_id INT,
-  ip\\\_address VARCHAR(50),
-  user\\\_agent VARCHAR(255),
+  id INT AUTO\\\INCREMENT PRIMARY KEY,
+  user\\\id INT,
+  ip\\\address VARCHAR(50),
+  user\\\agent VARCHAR(255),
   statut ENUM('succes','echec') DEFAULT 'succes',
-  created\\\_at TIMESTAMP DEFAULT CURRENT\\\_TIMESTAMP,
-  FOREIGN KEY (user\\\_id) REFERENCES users(id)
+  created\\\at TIMESTAMP DEFAULT CURRENT\\\TIMESTAMP,
+  FOREIGN KEY (user\\\id) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS tentatives\\\_echec (
-  id INT AUTO\\\_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS tentatives\\\echec (
+  id INT AUTO\\\INCREMENT PRIMARY KEY,
   email VARCHAR(100),
-  ip\\\_address VARCHAR(50),
-  nb\\\_tentatives INT DEFAULT 1,
-  derniere\\\_tentative TIMESTAMP DEFAULT CURRENT\\\_TIMESTAMP
+  ip\\\address VARCHAR(50),
+  nb\\\tentatives INT DEFAULT 1,
+  derniere\\\tentative TIMESTAMP DEFAULT CURRENT\\\TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS logs\\\_activite (
-  id INT AUTO\\\_INCREMENT PRIMARY KEY,
-  user\\\_id INT,
-  type\\\_action ENUM('consultation','transaction','connexion','deconnexion'),
-  ip\\\_address VARCHAR(50),
-  created\\\_at TIMESTAMP DEFAULT CURRENT\\\_TIMESTAMP,
-  FOREIGN KEY (user\\\_id) REFERENCES users(id)
+CREATE TABLE IF NOT EXISTS logs\\\activite (
+  id INT AUTO\\\INCREMENT PRIMARY KEY,
+  user\\\id INT,
+  type\\\action ENUM('consultation','transaction','connexion','deconnexion'),
+  ip\\\address VARCHAR(50),
+  created\\\at TIMESTAMP DEFAULT CURRENT\\\TIMESTAMP,
+  FOREIGN KEY (user\\\id) REFERENCES users(id)
 );
 ```
 
@@ -300,7 +300,7 @@ POST /api/auth/inscription
 {
   "nom": "Test ShieldTx",
   "email": "test@shieldtx.com",
-  "mot\\\_de\\\_passe": "test1234"
+  "mot\\\de\\\passe": "test1234"
 }
 ```
 
@@ -310,7 +310,7 @@ POST /api/auth/inscription
 POST /api/auth/connexion
 {
   "email": "test@shieldtx.com",
-  "mot\\\_de\\\_passe": "test1234"
+  "mot\\\de\\\passe": "test1234"
 }
 ```
 
@@ -357,7 +357,7 @@ https://shieldtx-production.up.railway.app
 |POST|/api/alertes|Signaler une transaction suspecte|
 |GET|/api/alertes|Lister mes alertes|
 
-**Header token :** Authorization: Bearer token\_jwt
+**Header token :** Authorization: Bearer token\jwt
 
 \---
 
