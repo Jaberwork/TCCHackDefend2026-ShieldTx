@@ -286,7 +286,7 @@ cd ../
 npm run dev
 ```
 
-L'interface est accessible sur http://localhost:5173
+L'interface est accessible sur http://localhost:5173 (local) ou https://shield-tx-five.vercel.app (production)
 
 \---
 
