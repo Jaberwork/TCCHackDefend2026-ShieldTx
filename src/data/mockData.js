@@ -1,28 +1,147 @@
-export const rapports = [
-    { id: 1, numero: "90112233", type: "Phishing SMS", signalements: 47, dernierSignalement: "2026-05-28", zone: "Lomé", score: 92 },
-    { id: 2, numero: "99887766", type: "Faux gain", signalements: 31, dernierSignalement: "2026-05-27", zone: "Sokodé", score: 78 },
-    { id: 3, numero: "92345678", type: "Usurpation d'identité", signalements: 24, dernierSignalement: "2026-05-25", zone: "Kara", score: 65 },
-    { id: 4, numero: "91234567", type: "SIM Swap", signalements: 18, dernierSignalement: "2026-05-20", zone: "Lomé", score: 55 },
-    { id: 5, numero: "93456789", type: "Phishing SMS", signalements: 8, dernierSignalement: "2026-05-10", zone: "Atakpamé", score: 28 },
-  ];
-  
-  export const statsData = [
-    { mois: "Jan", signalements: 12 },
-    { mois: "Fév", signalements: 19 },
-    { mois: "Mar", signalements: 31 },
-    { mois: "Avr", signalements: 27 },
-    { mois: "Mai", signalements: 47 },
-  ];
-  
-  export const typesArnaques = [
-    { type: "Phishing SMS", count: 42 },
-    { type: "Faux gain", count: 28 },
-    { type: "Usurpation", count: 18 },
-    { type: "SIM Swap", count: 12 },
-  ];
-  
-  export const getScore = (numero) => {
-    const rapport = rapports.find((r) => r.numero === numero);
-    if (!rapport) return null;
-    return rapport;
+// mockData.js — Données simulées ShieldTx
+// Numéros togolais fictifs avec niveaux de risque
+ export const mockNumeros = [
+  {
+    numero: "90123456",
+    statut: "DANGEREUX",
+    score: 95,
+    type_fraude: "phishing",
+    nb_signalements: 47,
+    zone: "Lomé",
+    message: "Ce numéro a été signalé 47 fois pour phishing SMS (faux gains)."
+  },
+  {
+    numero: "91234567",
+    statut: "DANGEREUX",
+    score: 88,
+    type_fraude: "sim_swap",
+    nb_signalements: 23,
+    zone: "Sokodé",
+    message: "Ce numéro a été signalé pour SIM swap et usurpation d'identité."
+  },
+  {
+    numero: "92345678",
+    statut: "DANGEREUX",
+    score: 76,
+    type_fraude: "faux_gain",
+    nb_signalements: 15,
+    zone: "Kara",
+    message: "Ce numéro envoie des SMS de faux gains Mobile Money."
+  },
+  {
+    numero: "93456789",
+    statut: "SUSPECT",
+    score: 55,
+    type_fraude: "usurpation",
+    nb_signalements: 6,
+    zone: "Atakpamé",
+    message: "Ce numéro a été signalé 6 fois. Procédez avec prudence."
+  },
+  {
+    numero: "94567890",
+    statut: "SUSPECT",
+    score: 42,
+    type_fraude: "autre",
+    nb_signalements: 3,
+    zone: "Dapaong",
+    message: "Quelques signalements sur ce numéro. Vérifiez l'identité de l'expéditeur."
+  },
+  {
+    numero: "95678901",
+    statut: "FIABLE",
+    score: 12,
+    type_fraude: null,
+    nb_signalements: 0,
+    zone: "Kpalimé",
+    message: "Aucun signalement pour ce numéro."
+  },
+  {
+    numero: "96789012",
+    statut: "FIABLE",
+    score: 5,
+    type_fraude: null,
+    nb_signalements: 0,
+    zone: "Aného",
+    message: "Aucun signalement pour ce numéro."
+  },
+  {
+    numero: "97890123",
+    statut: "FIABLE",
+    score: 0,
+    type_fraude: null,
+    nb_signalements: 0,
+    zone: "Bassar",
+    message: "Aucun signalement pour ce numéro."
+  }
+];
+// Fonction de vérification mock (si l'API n'est pas disponible)
+export function verifierNumerMock(numero) {
+  const trouve = mockNumeros.find(n => n.numero === numero);
+  if (trouve) return trouve;
+  return {
+    numero,
+    statut: "FIABLE",
+    score: 0,
+    type_fraude: null,
+    nb_signalements: 0,
+    message: "Aucun signalement pour ce numéro."
   };
+}
+// Transactions simulées pour le dashboard
+export const mockTransactions = [
+  {
+    id: 1,
+    montant: 750000,
+    type: "envoi",
+    statut: "suspecte",
+    score_risque: 85,
+    niveau_risque: "DANGEREUX",
+    created_at: "2026-06-06T23:15:00"
+  },
+  {
+    id: 2,
+    montant: 25000,
+    type: "reception",
+    statut: "normale",
+    score_risque: 10,
+    niveau_risque: "FIABLE",
+    created_at: "2026-06-06T14:30:00"
+  },
+  {
+    id: 3,
+    montant: 50000,
+    type: "envoi",
+    statut: "normale",
+    score_risque: 15,
+    niveau_risque: "FIABLE",
+    created_at: "2026-06-05T10:00:00"
+  },
+  {
+    id: 4,
+    montant: 200000,
+    type: "retrait",
+    statut: "suspecte",
+    score_risque: 45,
+    niveau_risque: "SUSPECT",
+    created_at: "2026-06-04T02:30:00"
+  },
+  {
+    id: 5,
+    montant: 15000,
+    type: "envoi",
+    statut: "normale",
+    score_risque: 5,
+    niveau_risque: "FIABLE",
+    created_at: "2026-06-03T09:00:00"
+  }
+];
+// Stats simulées pour le dashboard
+export const mockStats = {
+  total: 5,
+  suspectes: 2,
+  bloquees: 0,
+  montant_total: 1040000
+};
+
+
+
