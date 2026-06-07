@@ -270,9 +270,10 @@ cd backend
 node server.js
 ```
 
-Le serveur démarre sur http://localhost:3000
+Le serveur démarre sur http://localhost:3000 (local) ou https://shieldtx-production.up.railway.app (production)
 
-Vérification : ouvrir http://localhost:3000/ -- réponse attendue :
+Vérification locale : http://localhost:3000/
+Vérification en production : https://shieldtx-production.up.railway.app/ -- réponse attendue :
 
 ```json
 { "message": "ShieldTx API operationnelle" }
