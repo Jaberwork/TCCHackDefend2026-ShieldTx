@@ -16,7 +16,7 @@ function App() {
   // - le layout global (fond, texte) + Navbar
   // - les routes (Routes/Route)
   return (
-    <BrowserRouter basename="/ShieldTx">
+    <BrowserRouter>
       {/* Layout global : min-h-screen + thème sombre */}
       <div className="min-h-screen bg-gray-950 text-white">
         {/* Navigation toujours visible */}
