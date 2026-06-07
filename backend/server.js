@@ -9,10 +9,18 @@ const transactionRoutes = require('./routes/transactions');
 const alerteRoutes = require('./routes/alertes');
 
 const app = express();
+app.set('trust proxy', 1);
+
 
 // ─── Middlewares de sécurité ───────────────────────────────────────────────
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://khassim10.github.io'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Limite : 100 requêtes max par 15 minutes par IP
@@ -27,6 +35,7 @@ app.use(limiter);
 app.use('/api/auth', authRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/alertes', alerteRoutes);
+app.use('/api/verifier', alerteRoutes);
 
 // ─── Route de test ────────────────────────────────────────────────────────
 app.get('/', (req, res) => {

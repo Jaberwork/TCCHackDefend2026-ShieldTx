@@ -55,5 +55,33 @@ router.get('/', verifierToken, async (req, res) => {
     res.status(500).json({ erreur: 'Erreur lors de la récupération des alertes.' });
   }
 });
+router.get('/:numero', async (req, res) => {
+  const { numero } = req.params;
+  try {
+    const [fraude] = await db.query(
+      'SELECT * FROM numeros_frauduleux WHERE numero = ?',
+      [numero]
+    );
+    if (fraude.length > 0) {
+      return res.json({
+        numero,
+        statut: 'DANGEREUX',
+        score: 100,
+        type_fraude: fraude[0].type_fraude,
+        nb_signalements: fraude[0].nb_signalements,
+        message: 'Ce numéro a été signalé comme frauduleux.'
+      });
+    }
+    res.json({
+      numero,
+      statut: 'FIABLE',
+      score: 0,
+      message: 'Aucun signalement pour ce numéro.'
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ erreur: 'Erreur lors de la vérification.' });
+  }
+});
 
 module.exports = router;
